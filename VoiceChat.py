@@ -2,11 +2,13 @@ import speech_recognition as sr
 from dotenv import load_dotenv
 import os
 import openai
+import pyttsx3
+# os.getenv("OPENAI_API_KEY")
 
 class Assistant:
     def __init__(self):
         load_dotenv()
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_key = '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'
 
     def get_user_input(self):
         rec = sr.Recognizer()
@@ -27,14 +29,21 @@ class Assistant:
 
     def run(self):
         while True:
-            user_input = self.get_user_input()
-            assistant_reply = self.get_assistant_reply(user_input)
-
-            print("Usuário:", user_input)
-            print("Assistente:", assistant_reply)
-
-            if user_input.lower() == "sair":
+            if self.get_user_input == "sair":
                 break
+
+            user_input = self.get_user_input()
+            
+            response = self.get_assistant_reply(user_input)
+            print(response)
+            
+            engine = pyttsx3.init()
+            engine.setProperty('rate', 150)  
+            voices = engine.getProperty('voices')
+            engine.setProperty('voice', voices[0].id)  
+            engine.say(response)
+            engine.runAndWait()
+            
 
 if __name__ == "__main__":
     assistant = Assistant()
