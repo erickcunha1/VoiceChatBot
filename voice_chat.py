@@ -3,12 +3,12 @@ from dotenv import load_dotenv
 import os
 import openai
 import pyttsx3
-# os.getenv("OPENAI_API_KEY")
+
 
 class Assistant:
     def __init__(self):
         load_dotenv()
-        openai.api_key = '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'
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
     def get_user_input(self):
         rec = sr.Recognizer()
